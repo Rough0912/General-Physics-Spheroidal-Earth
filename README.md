@@ -28,3 +28,8 @@ To run the simulation scripts, you will need **Python 3.8+** and the following l
 1. Clone this repository to your local machine:
 ```bash
    git clone [https://github.com/YourUsername/YourRepositoryName.git](https://github.com/YourUsername/YourRepositoryName.git)
+
+## 📊 Simulation Outputs
+When you run the script, it automatically generates and saves the following files in the project directory:
+* **Static Trajectory Plots (`.png`)**: High-resolution graphs comparing the puck's path on a sphere vs. a spheroid.
+* **Animated Visualizations (`.gif`)**: Dynamic animations showing the real-time movement and Coriolis deflection over the simulation period.
