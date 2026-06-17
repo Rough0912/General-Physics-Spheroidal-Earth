@@ -1,0 +1,401 @@
+\documentclass[10pt, a4paper]{article}
+
+\usepackage{amsmath, amssymb}  
+\usepackage{graphicx} 
+\usepackage{booktabs}
+
+\title{
+\mbox{\textbf{PHYSICS GROUP PROJECT REPORT}}\\
+\vspace{0.5cm}
+\Large{Forces and Conservation Laws for Motion\\ on Our Spheroidal Earth}\\
+\vspace{2cm}
+\normalsize Based on the Article in the American Journal of Physics\\ 
+Boyd F. Edwards \& John M. Edwards, Am. J. Phys. 89, 830–842 (2021)}
+
+\author{202311102 Myoungjin Song 202611139 Seoungmin Yoon \\ {202611064 Taeyoon Kim 202611234 Yedam Han} }
+\date{\textbf{Course: General Physics I} \\ 
+\textbf{Instructor: Dr. Deniz Olgu Devecioğlu} \\
+\vspace{0.5cm} DGIST, June 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This report provides a comprehensive, pedagogical breakdown of “Forces and Conservation Laws for Motion on Our Spheroidal Earth” by Boyd F. Edwards and John M. Edwards, published in the American Journal of Physics (Volume 89, Pages 830–842, 2021). Although the original paper assumed a certain level of mathematical and physical maturity, this report fills in the intermediate algebraic steps, explains the contextual physics principles, and interprets key equations. The central result of the paper is striking in its elegance: the oblate spheroidal shape of the Earth, although barely perceptible (flattening $f \approx 0.003$), has a profound effect on surface dynamics. On real Earth, the horizontal components of gravity and the centrifugal force cancel exactly, leaving the Coriolis force as the sole force that governs the horizontal motion of a frictionless object. We reconstruct the rotating frame transformation of Newton’s second law, the geodetic coordinate expressions for all relevant forces, the hydrostatic equilibrium condition, the proof of axial angular momentum conservation and the contrasting kinetic energy conservation laws for spherical versus spheroidal Earths. We also critically evaluate the assumptions of the paper and discuss modern applications of its framework. 
+\end{abstract}
+
+\section{Introduction and Contextual Background}
+\subsection{Historical and Pedagogical Significance}
+The Coriolis force is a long-studied but persistently misunderstood concept in classical mechanics. As noted by Edwards \& Edwards [1], the physics and meteorology literature is riddled with errors that arise from an incorrect application of Hadley’s principle and from treating the Earth as a sphere rather than the oblate spheroid it actually is. Remarkably, even distinguished physicists such as Richard Feynman and Max Born made errors when explaining this force. 
+
+This paper aimed at upper-division undergraduate students of classical mechanics who have learned how to transform Newton’s second law into a rotating frame but often cannot physically interpret the resulting inertial forces. The core contribution of the paper clarifies that, on the real (spheroidal) Earth, the centrifugal force is exactly canceled by the shape of the Earth, leaving only the Coriolis force to govern horizontal surface motion. 
+
+Traditional treatments use a spherical Earth model and must therefore grapple with an unbalanced centrifugal force pushing objects toward the equator. The authors demonstrate that this leads to qualitatively incorrect predictions for surface motion — including the wrong frame for kinetic energy conservation and the wrong trajectory type. The paper is published in the American Journal of Physics precisely because it corrects widespread misconceptions in the pedagogical literature, offers a general treatment applicable to planets with arbitrary eccentricity, and introduces the freely available CorioVis simulation software.
+
+\subsection{Physical Setup and System Parameters}
+The system under study is a hockey puck of mass $m$ sliding without friction on a smooth, rotating, self-gravitating spheroid. Two reference frames are used throughout: an inertial frame $S'$ (fixed to the stars) and a rotating frame $S$ (co-rotating with the Earth). The Earth is modeled as an oblate spheroid characterized by its equatorial radius $a$ and polar radius $b$. Key parameters are summarized in Table 1.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Symbol} & \textbf{Physical Meaning} & \textbf{Value / Units} \\
+\midrule
+$m$ & Mass of the hockey puck & 0.16 kg \\
+$a$ & Equatorial radius of Earth & 6,378,137 m \\
+$b$ & Polar radius of Earth & 6,356,752 m \\
+$f = (a-b)/a$ & Flattening of Earth & 0.003353 \\
+$e$ & Spheroidal eccentricity & 0.08182 \\
+$\Omega$ & Earth's angular speed of rotation & $7.292 \times 10^{-5}$ rad/s \\
+$\tau$ (sidereal) & Sidereal rotation period & 23.93 h \\
+$\theta$ & Geodetic latitude & rad \\
+$\phi$ & Geodetic longitude & rad \\
+$\rho$ & Distance from rotation axis & m \\
+$R$ & Meridional radius of curvature & m \\
+$\mathbf{F}_{cor}$ & Coriolis force & N \\
+$\mathbf{F}_{cen}$ & Centrifugal force & N \\
+$\mathbf{F}'_g$ & Apparent gravitational force & N \\
+\bottomrule
+\end{tabular}
+\caption{Key symbols, constants, and variables used in the analysis.}
+\label{tab:params}
+\end{table}
+
+\section{Step-by-Step Mathematical Derivations}
+\subsection{Rotating Frame Transformation: Newton’s Second Law}
+The starting point is Newton’s second law as seen by an inertial observer watching the puck from space. Only the gravitational force $\mathbf{F}_g = m\mathbf{g}$ and the normal force $\mathbf{F}_n = F_n\hat{\mathbf{n}}$ act on the frictionless puck:
+\begin{equation}
+    m\left(\frac{d^2\mathbf{r}}{dt^2}\right)_{S'} = \mathbf{F}_g + \mathbf{F}_n 
+    \label{eq:9}
+\end{equation}
+
+To transform into the rotating frame $S$ (which rotates with angular velocity $\boldsymbol{\Omega} = \Omega \hat{\mathbf{z}}$), we use the general relation for any vector $\mathbf{Q}$:
+\begin{equation}
+\left(\frac{d\mathbf{Q}}{dt}\right)_{S'} = \left(\frac{d\mathbf{Q}}{dt}\right)_S + \boldsymbol{\Omega} \times \mathbf{Q} \label{eq:14}
+\end{equation}
+
+This relation captures the fact that in the rotating frame, the coordinate axes themselves are moving, so the total rate of change of any vector has an additional cross-product term.
+
+\textbf{Step 1:} Apply Eq. \ref{eq:14} to the position vector $\mathbf{r}$ to obtain the velocity relationship: 
+\begin{equation}
+\left(\frac{d\mathbf{r}}{dt}\right)_{S'} = \left(\frac{d\mathbf{r}}{dt}\right)_S + \boldsymbol{\Omega} \times \mathbf{r} \label{eq:15}
+\end{equation}
+
+To verify that $\boldsymbol{\Omega} \times \mathbf{r} = \Omega\rho\hat{\boldsymbol{\phi}}$, we substitute $\boldsymbol{\Omega} = \Omega\hat{\mathbf{z}}$ and $\mathbf{r} = \rho \cos\phi \hat{\mathbf{x}} + \rho \sin\phi \hat{\mathbf{y}} + z\hat{\mathbf{z}}$ (Eq. 3):
+\begin{align*}
+\boldsymbol{\Omega} \times \mathbf{r} &= \Omega\hat{\mathbf{z}} \times (\rho \cos\phi \hat{\mathbf{x}} + \rho \sin\phi \hat{\mathbf{y}} + z\hat{\mathbf{z}}) \\
+&= \Omega\rho \cos\phi (\hat{\mathbf{z}} \times \hat{\mathbf{x}}) + \Omega\rho \sin\phi (\hat{\mathbf{z}} \times \hat{\mathbf{y}}) + 0 \\
+&= \Omega\rho \cos\phi \hat{\mathbf{y}} - \Omega\rho \sin\phi \hat{\mathbf{x}} \\
+&= \Omega\rho (-\sin\phi \hat{\mathbf{x}} + \cos\phi \hat{\mathbf{y}}) = \Omega\rho\hat{\boldsymbol{\phi}}
+\end{align*}
+
+where we used $\hat{\mathbf{z}} \times \hat{\mathbf{x}} = \hat{\mathbf{y}}, \quad \hat{\mathbf{z}} \times \hat{\mathbf{y}} = -\hat{\mathbf{x}}, \quad \text{and the definition } \hat{\boldsymbol{\phi}} = -\sin\phi \hat{\mathbf{x}} + \cos\phi \hat{\mathbf{y}}$ (Eq. 8b). This term is the eastward tangential velocity of the Earth’s surface at the puck’s location.
+
+\textbf{Step 2:} Apply $(d/dt)_S'$ to both sides of Eq. 15. Using Eq. 14 on each term separately:
+\begin{equation}
+\left(\frac{d}{dt}\right)_{S'} \left[ \left(\frac{d\mathbf{r}}{dt}\right)_S \right] = \left(\frac{d^2\mathbf{r}}{dt^2}\right)_S + \boldsymbol{\Omega} \times \left(\frac{d\mathbf{r}}{dt}\right)_S
+\end{equation}
+\begin{equation}
+\left(\frac{d}{dt}\right)_{S'} [ \boldsymbol{\Omega} \times \mathbf{r} ] = \boldsymbol{\Omega} \times \left(\frac{d\mathbf{r}}{dt}\right)_{S'} = \boldsymbol{\Omega} \times \left(\frac{d\mathbf{r}}{dt}\right)_S + \boldsymbol{\Omega} \times (\boldsymbol{\Omega} \times \mathbf{r})
+\end{equation}
+
+Adding these two results gives the full acceleration transformation:
+\begin{equation}
+\left(\frac{d^2\mathbf{r}}{dt^2}\right)_{S'} = \left(\frac{d^2\mathbf{r}}{dt^2}\right)_S + 2\boldsymbol{\Omega} \times \left(\frac{d\mathbf{r}}{dt}\right)_S + \boldsymbol{\Omega} \times (\boldsymbol{\Omega} \times \mathbf{r}) \label{eq:21c}
+\end{equation}
+
+The factor of 2 in the Coriolis term arises naturally: One $\boldsymbol{\Omega} \times \left( \frac{d\mathbf{r}}{dt} \right)_S$ term comes from differentiating $\left( \frac{d\mathbf{r}}{dt} \right)_S$, and the other from differentiating $\boldsymbol{\Omega} \times \mathbf{r}$. Substituting into Newton's law (Eq. 9):
+\begin{equation}
+m\left(\frac{d^2\mathbf{r}}{dt^2}\right)_S = \mathbf{F}_g + \mathbf{F}_n + \mathbf{F}_{cor} + \mathbf{F}_{cen} \label{eq:22}
+\end{equation}
+
+where the two new inertial forces are:
+\begin{align}
+\mathbf{F}_{cor} &= -2m\boldsymbol{\Omega} \times \left(\frac{d\mathbf{r}}{dt}\right)_S \quad \text{[Coriolis force]} \label{eq:23} \\
+\mathbf{F}_{cen} &= -m\boldsymbol{\Omega} \times (\boldsymbol{\Omega} \times \mathbf{r}) = m\Omega^2\rho\hat{\boldsymbol{\rho}} \quad \text{[Centrifugal force]} \label{eq:24}
+\end{align}
+
+These forces appear only in the rotating frame. The Coriolis force acts perpendicular to the puck’s velocity and does no work. The centrifugal force points radially outward from the rotation axis and is present for both stationary and moving objects in the rotating frame.
+
+\subsection{Geodetic Coordinates on the Spheroid}
+The paper uses geodetic coordinates ($\theta, \phi$) rather than spherical coordinates. The geodetic latitude $\theta$ is defined as the angle between the surface normal and the equatorial plane — this is what GPS systems and maps use. On a sphere these coincide with spherical coordinates, but on a spheroid the surface normal does not point toward the Earth’s center.
+
+The position of the puck on the spheroid, expressed in rotating-frame Cartesian coordinates, is:
+\begin{equation}
+\mathbf{r} = \rho \cos\phi \hat{\mathbf{x}} + \rho \sin\phi \hat{\mathbf{y}} + z\hat{\mathbf{z}} \label{eq:3}
+\end{equation}
+
+where the distance from the rotation axis $\rho$ and the axial coordinate $z$ are:
+\begin{align}
+\rho &= \frac{a \cos\theta}{\sqrt{1 - e^2 \sin^2\theta}} \label{eq:4} \\
+z &= \frac{a (1 - e^2) \sin\theta}{\sqrt{1 - e^2 \sin^2\theta}} \label{eq:5}
+\end{align}
+
+Here $a$ is the equatorial radius and $e$ is the eccentricity. The relationship between eccentricity $e$ and flattening $f$ follows from their definitions:
+\begin{equation}
+e^2 = \frac{a^2 - b^2}{a^2} = 1 - (1 - f)^2 \label{eq:7}
+\end{equation}
+
+For a perfect sphere, $a = b$ so $f = 0$ and $e = 0$, and Eqs. 4 and 5 reduce to the familiar $\rho = a \cos\theta$ and $z = a \sin\theta$ of spherical coordinates.
+
+The unit vector $\hat{\boldsymbol{\rho}}$ points radially outward from the rotation axis toward the puck and is defined first:
+\begin{equation}
+\hat{\boldsymbol{\rho}} = \cos\phi \hat{\mathbf{x}} + \sin\phi \hat{\mathbf{y}} \label{eq:8a}
+\end{equation}
+
+The remaining three orthonormal local unit vectors are built from $\hat{\boldsymbol{\rho}}$ and $\hat{\mathbf{z}}$:
+\begin{align}
+\hat{\boldsymbol{\phi}} &= -\sin\phi \hat{\mathbf{x}} + \cos\phi \hat{\mathbf{y}} \label{eq:8b} \\
+\hat{\boldsymbol{\theta}} &= -\sin\theta \hat{\boldsymbol{\rho}} + \cos\theta \hat{\mathbf{z}} \label{eq:8c} \\
+\hat{\mathbf{n}} &= \cos\theta \hat{\boldsymbol{\rho}} + \sin\theta \hat{\mathbf{z}} \label{eq:8d}
+\end{align}
+
+These three vectors form a right-handed local geodetic coordinate system. They are the essential tools for decomposing the Coriolis and centrifugal forces into horizontal and vertical components.
+
+\subsection{Coriolis and Centrifugal Forces in Geodetic Coordinates}
+The puck’s velocity in the rotating frame has only horizontal components: 
+\begin{equation}
+\left(\frac{d\mathbf{r}}{dt}\right)_S = v_\phi \hat{\boldsymbol{\phi}} + v_\theta \hat{\boldsymbol{\theta}} \label{eq:17}
+\end{equation}
+
+where $v_\phi = \rho(d\phi/dt)$ is the eastward speed and $v_\theta = R(d\theta/dt)$ is the northward speed, with $R$ being the meridional radius of curvature (Eq. 19). To decompose the Coriolis force (Eq. 23) into geodetic components, we first note that $\hat{\boldsymbol{\rho}}$ can be expressed in terms of $\hat{\boldsymbol{\theta}}$ and $\hat{\mathbf{n}}$: 
+\begin{equation}
+\hat{\boldsymbol{\rho}} = \sin\theta \hat{\boldsymbol{\theta}} + \cos\theta \hat{\mathbf{n}} \label{eq:25}
+\end{equation}
+
+This follows directly from inverting Eqs. 8c and 8d. Substituting $\boldsymbol{\Omega} = \Omega\hat{\mathbf{z}}$, the velocity (Eq. 17), and Eq. 25 into the Coriolis force definition (Eq. 23), and using $\hat{\mathbf{z}} = \cos\theta \hat{\mathbf{n}} - \sin\theta \hat{\boldsymbol{\theta}}$:
+\begin{align*}
+\mathbf{F}_{cor} &= -2m\boldsymbol{\Omega} \times (v_\phi \hat{\boldsymbol{\phi}} + v_\theta \hat{\boldsymbol{\theta}}) \\
+&= -2m\Omega [v_\phi (\hat{\mathbf{z}} \times \hat{\boldsymbol{\phi}}) + v_\theta (\hat{\mathbf{z}} \times \hat{\boldsymbol{\theta}})] \\
+&= -2m\Omega [v_\phi (-\hat{\boldsymbol{\rho}}) + v_\theta \hat{\boldsymbol{\phi}}]
+\end{align*}
+
+Inserting Eq. 25 for $\hat{\boldsymbol{\rho}}$ and collecting horizontal ($\hat{\boldsymbol{\phi}}$, $\hat{\boldsymbol{\theta}}$) and vertical ($\hat{\mathbf{n}}$) terms:
+\begin{equation}
+\mathbf{F}_{cor} = -2m\Omega \sin\theta (v_\theta \hat{\boldsymbol{\phi}} - v_\phi \hat{\boldsymbol{\theta}}) + 2m\Omega v_\phi \cos\theta \hat{\mathbf{n}} \label{eq:26b}
+\end{equation}
+
+The horizontal component (first term) vanishes at the equator ($\theta = 0$), grows with $|\sin\theta|$, and acts to the right of the puck’s velocity in the Northern Hemisphere. The vertical component (second term) is strongest near the equator. 
+
+The centrifugal force (Eq. 32) points radially outward from the rotation axis: $\mathbf{F}_{cen} = m\Omega^2\rho\hat{\boldsymbol{\rho}}$. Inserting Eq. 25 ($\hat{\boldsymbol{\rho}} = \sin\theta \hat{\boldsymbol{\theta}} + \cos\theta \hat{\mathbf{n}}$) resolves it into horizontal and vertical components:
+\begin{align}
+\mathbf{F}_{cen} &= m\Omega^2\rho\hat{\boldsymbol{\rho}} = m\Omega^2\rho(\sin\theta\hat{\boldsymbol{\theta}} + \cos\theta\hat{\mathbf{n}}) \nonumber \\
+&= m\Omega^2\rho\sin\theta\hat{\boldsymbol{\theta}} + m\Omega^2\rho\cos\theta\hat{\mathbf{n}} \label{eq:33}
+\end{align}
+
+The horizontal component (first term) drives the puck toward the equator at all latitudes except the poles and the equator. This large southward force is the key difference between the sphere and spheroid cases.
+
+\subsection{Why Hadley’s Principle Gives Only Half the Coriolis Deflection}
+For a northward launch from latitude $\theta_0$ at speed $v_0$, the puck’s initial velocity in the inertial frame has two components: a northward component $v_0$ and an eastward component $\Omega\rho_0$ matching the Earth’s local tangential velocity. Hadley’s principle incorrectly assumes this eastward inertial velocity $\Omega\rho_0$ stays constant as the puck moves north. The apparent eastward velocity in the rotating frame then becomes:
+\begin{equation}
+v_\phi = \Omega\rho_0 - \Omega\rho \label{eq:28}
+\end{equation}
+
+where $\Omega\rho$ is the local tangential velocity of the Earth’s surface, which decreases as the puck moves north. The resulting eastward force under Hadley’s assumption is:
+\begin{equation}
+F_{\phi, Hadley} = m\left(\frac{dv_\phi}{dt}\right)_S = m\left(\frac{dv_\phi}{d\theta}\right)\left(\frac{d\theta}{dt}\right)_S \label{eq:29}
+\end{equation}
+
+Differentiating Eq. 28 with respect to $\theta$, using $d\rho/d\theta$ from Eq. 4, and evaluating at the initial moment ($\theta = \theta_0, v_\theta = v_0$) gives: 
+\begin{equation}
+F_{\phi, Hadley} = m\Omega v_0 \sin\theta_0 \label{eq:30}
+\end{equation}
+
+But the actual initial Coriolis force from Eq. 26b is:
+\begin{equation}
+F_{\phi, Coriolis} = 2m\Omega v_0 \sin\theta_0 \label{eq:31}
+\end{equation}
+
+Hadley’s principle gives exactly half the correct result. The missing half arises from conservation of axial angular momentum: as the puck moves north its distance from the rotation axis decreases, so its eastward inertial velocity must increase (not stay constant), contributing an additional equal deflection.
+
+\section{Apparent Gravitational Force and Hydrostatic Equilibrium}
+The apparent gravitational force is the vector sum of gravity and the centrifugal force: 
+\begin{equation}
+\mathbf{F}'_g = \mathbf{F}_g + \mathbf{F}_{cen} \label{eq:34}
+\end{equation}
+
+For the Earth to be in hydrostatic (stable) equilibrium, this apparent gravitational force must be perpendicular to its surface everywhere. If it were not, the tangential component would redistribute mass until equilibrium is achieved — analogous to how charges redistribute on a conductor surface in response to an applied electric field. 
+
+The stable equilibrium condition requires the northward component of $\mathbf{F}'_g$ to vanish:
+\begin{equation}
+\hat{\boldsymbol{\theta}} \cdot \mathbf{F}'_g = 0 \label{eq:37}
+\end{equation}
+
+From this condition, the northward component of the gravitational acceleration is determined: 
+\begin{equation}
+g_\theta = \Omega^2\rho\sin\theta \label{eq:38}
+\end{equation}
+
+This means that the gravitational acceleration itself has a small northward (pole-ward) component, exactly canceling the equator-ward centrifugal force on the stably rotating spheroid. The stable angular speed $\tilde{\Omega}(e)$ is governed by the Maclaurin spheroid formula (Eq. 35), which relates the equilibrium eccentricity to the rotation rate for a uniform-density body.
+
+For a puck released from rest anywhere on the surface ($\theta \neq 0, \pi/2$), the initial Coriolis force is zero, so:
+\begin{equation}
+m\left(\frac{d^2\mathbf{r}}{dt^2}\right)_S = \mathbf{F}'_g + \mathbf{F}_n \label{eq:41}
+\end{equation}
+
+The physical consequences depend on the rotation rate: 
+\begin{itemize}
+    \item $\Omega = \tilde{\Omega}$ (current Earth): $\mathbf{F}'_g$ is perpendicular to the surface — the puck stays at rest. 
+    \item $\Omega > \tilde{\Omega}$ (faster rotation): $\mathbf{F}'_g$ has a horizontal component driving the puck toward the equator. 
+    \item $\Omega < \tilde{\Omega}$ (slower rotation): $\mathbf{F}'_g$ drives the puck toward the nearest pole. 
+    \item Spherical Earth ($e = 0$): The centrifugal force is unbalanced — even a stationary puck drifts toward the equator.
+\end{itemize}
+
+\section{Conservation Laws}
+\subsection{Conservation of Axial Angular Momentum}
+The paper proves that the z-component (axial) of angular momentum is conserved in the inertial frame for a puck moving on a frictionless spheroidal surface. The axial angular momentum is:
+\begin{equation}
+L_{\phi, S'} = m[\hat{\mathbf{z}} \cdot (\mathbf{r} \times \left(\frac{d\mathbf{r}}{dt}\right)_{S'})] \label{eq:43}
+\end{equation}
+
+Taking the time derivative and permuting the triple product: 
+\begin{align}
+\frac{dL_{\phi, S'}}{dt} &= m\hat{\mathbf{z}} \cdot [\mathbf{r} \times \left(\frac{d^2\mathbf{r}}{dt^2}\right)_{S'}] \nonumber \\
+&= m\left(\frac{d^2\mathbf{r}}{dt^2}\right)_{S'} \cdot (\hat{\mathbf{z}} \times \mathbf{r}) \label{eq:44b}
+\end{align}
+
+Substituting Newton’s second law (Eq. 9) and using $\hat{\mathbf{z}} \times \mathbf{r} = \rho\hat{\boldsymbol{\phi}}$ (from Eqs. 3 and 8b): 
+\begin{equation}
+\frac{dL_{\phi, S'}}{dt} = (\mathbf{F}_g + \mathbf{F}_n) \cdot (\rho\hat{\boldsymbol{\phi}}) \label{eq:44c}
+\end{equation}
+
+Both $\mathbf{F}_g$ and $\mathbf{F}_n$ lie in the meridional ($\rho, z$) plane by symmetry — gravity points toward the Earth’s interior along the geodetic normal, and the normal force points outward along $\hat{\mathbf{n}}$. Neither has a $\hat{\boldsymbol{\phi}}$ (eastward) component, so both dot products vanish:
+\begin{equation}
+\frac{dL_{\phi, S'}}{dt} = 0 \implies L_{\phi, S'} = \text{constant} \label{eq:45}
+\end{equation}
+
+This result holds regardless of the Earth’s rotation rate. In practice, this means: as the puck moves northward and its distance from the rotation axis decreases ($\rho$ decreases), its eastward inertial velocity must increase to conserve $L_\phi$. This is the physical origin of the missing half of the Coriolis deflection that Hadley’s principle ignores. 
+The conserved quantity is derived by permuting the triple product in Eq. 43 and substituting Eqs. 3, 8a, and 20. First, permuting gives:
+\begin{equation}
+L_{\phi, S'} = m\left(\frac{d\mathbf{r}}{dt}\right)_{S'} \cdot (\hat{\mathbf{z}} \times \mathbf{r}) \nonumber
+\end{equation}
+
+Using $\mathbf{r} = \rho\hat{\boldsymbol{\rho}} + z\hat{\mathbf{z}}$ (from Eq. 3) and the right-hand rule $\hat{\mathbf{z}} \times \hat{\boldsymbol{\rho}} = \hat{\boldsymbol{\phi}}$:
+\begin{equation}
+\hat{\mathbf{z}} \times \mathbf{r} = \rho(\hat{\mathbf{z}} \times \hat{\boldsymbol{\rho}}) + z(\hat{\mathbf{z}} \times \hat{\mathbf{z}}) = \rho\hat{\boldsymbol{\phi}} + 0 = \rho\hat{\boldsymbol{\phi}} \nonumber
+\end{equation}
+
+The inertial frame velocity from Eq. 20 is $(d\mathbf{r}/dt)_{S'} = (\Omega\rho + v_\phi)\hat{\boldsymbol{\phi}} + v_\theta\hat{\boldsymbol{\theta}}$. Taking the dot product with $\rho\hat{\boldsymbol{\phi}}$, and using $\hat{\boldsymbol{\phi}} \cdot \hat{\boldsymbol{\phi}} = 1$ and $\hat{\boldsymbol{\theta}} \cdot \hat{\boldsymbol{\phi}} = 0$:
+\begin{equation}
+L_{\phi, S'} = m\rho(\Omega\rho + v_\phi) = \text{constant} \label{eq:46}
+\end{equation}
+
+The quantity $(\Omega\rho + v_\phi)$ is the total eastward velocity in the inertial frame. Since $\rho$ decreases as the puck moves north, $v_\phi$ must increase to keep $L_\phi$ constant — the eastward inertial velocity is not constant as Hadley assumed.
+
+\subsection{Kinetic Energy Conservation: Sphere vs. Spheroid}
+One of the most striking results of the paper is a contrast in which reference frame conserves kinetic energy, depending on the Earth’s shape. The kinetic energy in the rotating frame is $T_S = (1/2)m|(d\mathbf{r}/dt)_S|^2$. Its time derivative is:
+\begin{align}
+\frac{d(T)_S}{dt} &= m\left(\frac{d\mathbf{r}}{dt}\right)_S \cdot \left(\frac{d^2\mathbf{r}}{dt^2}\right)_S \nonumber \\
+&= \left(\frac{d\mathbf{r}}{dt}\right)_S \cdot (\mathbf{F}'_g + \mathbf{F}_n + \mathbf{F}_{cor}) \label{eq:48b}
+\end{align}
+
+We evaluate each scalar product in turn: 
+\begin{itemize}
+    \item $\mathbf{F}_n \cdot (d\mathbf{r}/dt)_S = 0$, since the normal force is perpendicular to the surface and the puck moves along it (Eq. 50). 
+    \item $\mathbf{F}_{cor} \cdot (d\mathbf{r}/dt)_S = 0$, since the Coriolis force is always perpendicular to the puck’s velocity by definition (Eq. 51). 
+    \item $\mathbf{F}'_g \cdot (d\mathbf{r}/dt)_S = m(\tilde{\Omega}^2 - \Omega^2)\rho v_\theta \sin\theta$, from substituting Eq. 40 and Eq. 17 (Eq. 49). 
+\end{itemize}
+Combining:
+\begin{equation}
+\frac{d(T)_S}{dt} = m(\tilde{\Omega}^2 - \Omega^2)\rho v_\theta \sin\theta \label{eq:52}
+\end{equation}
+
+For a stably rotating spheroid ($\Omega = \tilde{\Omega}$), the right-hand side vanishes and kinetic energy is conserved in the rotating frame. For a sphere, kinetic energy is instead conserved in the inertial frame. Table 2 summarizes this key contrast. 
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Surface Shape} & \textbf{KE Conserved In} & \textbf{Reason} \\
+\midrule
+Rotating Sphere & Inertial frame $S'$ & Normal and gravity forces are both \\
+& & perpendicular to velocity $\rightarrow$ no work done. \\
+Stably Rotating Spheroid & Rotating frame $S$ & Coriolis force $\perp \mathbf{v} \rightarrow$ no work; \\
+& & apparent gravity $\perp$ surface $\rightarrow$ no work. \\
+\bottomrule
+\end{tabular}
+\caption{Reference frame in which kinetic energy is conserved on each surface.}
+\label{tab:ke}
+\end{table}
+
+This difference reflects the fundamental role of the centrifugal force on a rotating sphere: it does work on the puck (because it is not perpendicular to the puck’s motion), changing the kinetic energy in the rotating frame. On the spheroid, the centrifugal force is exactly cancelled by the horizontal component of gravity, so only the Coriolis force remains — and it does no work. 
+
+\section{Puck Trajectories: Sphere vs. Spheroid}
+\subsection{Launch from the Northern Hemisphere (Fig. 1)}
+A puck is launched northward from latitude $\theta = 40^{\circ}$ (off the coast of Portugal) at $v_0 = 50\,\text{m/s}$ in the rotating frame. In the inertial frame, the puck’s initial velocity also includes a $356\,\text{m/s}$ eastward component matching the Earth’s local tangential velocity, giving a total of $359\,\text{m/s}$ toward the northeast. 
+
+\textbf{On a rotating sphere: }The puck executes zigzag motion in the rotating frame over a 31-hour period, reaching latitudes as far as $\theta = \pm 40.7^{\circ}$ and crossing into the Southern Hemisphere. The centrifugal force drives it toward the equator, causing the speed to vary dramatically between $7\,\text{m/s}$ and $303\,\text{m/s}$. In the inertial frame, the puck moves at a constant $359\,\text{m/s}$ along a great circle, reflecting conservation of kinetic energy in the inertial frame. 
+
+\textbf{On a stably rotating spheroid: }The puck executes clockwise inertial oscillations confined between latitudes $35^{\circ}$ and $44^{\circ}$ at a constant speed of $50\,\text{m/s}$ over a 19-hour period — reflecting conservation of kinetic energy in the rotating frame. The Coriolis force is the only horizontal force, and its magnitude varies with latitude, giving a latitude-dependent radius of curvature: 
+\begin{equation}
+r_{cv} = \frac{v}{2\Omega\sin\theta} \label{eq:59}
+\end{equation}
+
+This radius is smallest at $\theta = 44^{\circ}$ (where the puck moves east) and largest at $\theta = 35^{\circ}$ (where it moves west). The puck therefore spends more time moving west, producing a net westward drift of about 170 km per cycle.
+
+\subsection{Launch from the Equator (Fig. 4)}
+A puck is launched from the equator ($\theta = 0^{\circ}$) with components $40\,\text{m/s}$ westward and $30\,\text{m/s}$ northward, giving $50\,\text{m/s}$ toward the northwest in the rotating frame. In the inertial frame, the total initial speed is $426\,\text{m/s}$ toward the northeast, including the large $465\,\text{m/s}$ eastward tangential velocity of the Earth at the equator. 
+
+\textbf{On a rotating sphere: }The puck oscillates sinusoidally between $\pm 64^{\circ}$ latitude at variable speed over a 26-hour cycle, drifting 3700 km westward. The centrifugal force dominates, opposing the Coriolis force throughout. In the inertial frame, the puck travels a great circle at a constant $426\,\text{m/s}$. 
+
+\textbf{On a stably rotating spheroid: }The puck executes inertial loops between $\pm 25^{\circ}$ latitude at a constant speed of $50\,\text{m/s}$ over a much longer 85-hour period — more than three times longer than the sphere case. The small horizontal Coriolis force near the equator (where $\sin|\theta|$ is small, Eq. 26b) is responsible for the puck’s large latitudinal excursions and long period. 
+
+These two cases together demonstrate that the difference between spherical and spheroidal Earth dynamics is not a small correction — it is a qualitative change in trajectory type, period, speed profile, and the frame in which energy is conserved.
+
+\section{Critical Analysis and Commentary}
+\subsection{Strengths of the Paper}
+The paper makes a genuinely important conceptual correction: it clearly demonstrates that motion on the spheroidal Earth differs fundamentally from motion on a rotating sphere, even though the flattening $f \approx 0.003$ is barely visible. This distinction is widely neglected in textbooks. 
+
+The proof that Hadley’s principle gives only half the Coriolis deflection (Eqs. 29–31) is elegant and well-supported mathematically, correcting a widespread error found throughout the meteorology literature. 
+
+The CorioVis software is a genuine pedagogical contribution, allowing students to visualize puck trajectories on both spherical and spheroidal Earths with adjustable eccentricity and rotation rate. 
+
+The conservation-law perspective (angular momentum and kinetic energy) provides a particularly clean physical intuition, rather than relying purely on algebraic manipulation of the equations of motion. 
+
+The framework is broadly applicable: by considering arbitrary eccentricity and rotation rate, the authors extend the analysis to rapidly-rotating bodies such as the dwarf planet Haumea ($f \approx 0.5$, period 3.9 h) and the early Earth.
+
+\subsection{Potential Limitations and Implicit Assumptions}
+The Earth is modeled as a uniform-density Maclaurin spheroid for the hydrostatic equilibrium condition. In reality, the Earth has a dense iron core and a complex internal structure; its actual shape is better described by the geoid rather than a simple ellipsoid. 
+
+Frictionless motion is assumed throughout. Real surfaces have friction, and atmospheric or fluid drag would make the puck’s trajectory far more complex. 
+
+The vertical component of the Coriolis force is present in the equations (Eq. 26b) but is not analyzed in depth. It is absorbed by the normal force for surface motion, but plays an important role in free-fall deflection and artillery calculations. 
+
+The geodetic coordinate system, while standard in geophysics, may be unfamiliar to many physics undergraduates. The paper assumes prior familiarity with vector calculus and rotating reference frames, limiting its accessibility to introductory students.
+
+\subsection{Modern Applications and Extensions}
+Oceanography and meteorology: Inertial oscillations (the puck’s motion on the spheroid) are directly observed in ocean current data, providing real-world verification of the paper’s results. 
+
+Planetary science: The general framework applies to exoplanets and dwarf planets with a wide range of eccentricities and rotation rates. 
+
+GPS and geodesy: The geodetic coordinate system used in this paper is identical to that underlying GPS (WGS84), making the mathematics directly relevant to satellite navigation. 
+
+Ballistics and sniping: Accurate long-range projectile calculations must account for the full Coriolis deflection, which requires the correct treatment presented here rather than Hadley’s approximation.
+
+\section{Conclusion}
+This report has unpacked the key mathematical and physical content of Edwards \& Edwards (2021). The central message is striking in its elegance: the Earth’s oblate spheroidal shape, though almost imperceptibly small in flattening ($f \approx 0.003$), has a profound effect on surface dynamics. On the real Earth, the horizontal components of gravity and the centrifugal force cancel exactly, leaving the Coriolis force as the sole force governing horizontal motion of a frictionless object. 
+
+We have reconstructed: the rotating-frame transformation of Newton’s second law (Eqs. 9 $\rightarrow$ 22), the geodetic coordinate expressions for the Coriolis and centrifugal forces (Eqs. 26, 32–33), the hydrostatic equilibrium condition (Eq. 37), the proof of axial angular momentum conservation (Eq. 45), and the contrasting kinetic energy conservation laws for spherical versus spheroidal Earths (Eq. 52, Table 2). 
+
+Working through these derivations step by step reveals why Hadley’s principle — ubiquitous in meteorology textbooks — gives only half the correct Coriolis deflection, and why treating the Earth as a sphere leads to qualitatively incorrect predictions for surface motion. These insights highlight the pedagogical value of the paper for upper-division physics and geophysics courses, and underscore the importance of geometry in governing the physics of rotating bodies.
+
+\begin{thebibliography}{9}
+
+\bibitem{edwards2021} 
+Edwards, B. F., \& Edwards, J. M. (2021). ``Forces and conservation laws for motion on our spheroidal Earth.'' \textit{American Journal of Physics}, 89(9), 830--842. https://doi.org/10.1119/10.0004801
+
+\bibitem{goldstein2002} 
+Goldstein, H., Poole, C., \& Safko, J. (2002). \textit{Classical Mechanics}. 3rd ed., Addison-Wesley.
+
+\bibitem{marion2003} 
+Marion, J. B., \& Thornton, S. T. (2003). \textit{Classical Dynamics of Particles and Systems}. 5th ed., Brooks/Cole.
+
+\bibitem{mcintyre2000} 
+McIntyre, D. H. (2000). ``Using great circles to understand motion on a rotating sphere.'' \textit{American Journal of Physics}, 68(12), 1097--1105.
+
+\bibitem{persson1998} 
+Persson, A. O. (1998). ``How do we understand the Coriolis force?'' \textit{Bulletin of the American Meteorological Society}, 79, 1373--1385.
+
+\end{thebibliography}
+
+\end{document}
